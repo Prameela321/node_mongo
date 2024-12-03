@@ -23,7 +23,57 @@ function createRestaurant(req,res){
     
 }
 
+function listRestaurant(req,res){
+    restaurantModel.find().then(data=>{
+        if(!data)
+            res.status(400).json({"message" : "No Data Found"});
+        return  res.status(200).json({data})
+    }).catch(err =>{
+        res.status(500).json({"message" : err});
+    })
+}
+
+
+const filterRestaurant =  (req,res)=>{
+    const _id = req.params.id;
+   
+    restaurantModel.findById(_id).then(data =>{
+        if(!data)
+            res.status(404).json({"message" : "Data not found"});
+        res.status(200).json(data);
+    }).catch(err=>{
+        res.status(500).json({"message" : "Something Went Wrong"});
+    })
+}
+
+const updateRestaurantById  = (req,res)=>{
+    const _id = req.params.id;
+    let {avgRating,offerLine} = req.body;
+    restaurantModel.findByIdAndUpdate(_id,{avgRating : avgRating ,offerLine : offerLine }).then(data=>{
+        if(!data){
+            res.status(404).json({"message" : "Data not found"})
+        }
+      res.status(200).json(data)
+    }).catch(err =>{
+        res.status(500).json({message : err.message});
+    })
+}
+
+const deleteRestaurantById = (req,res)=>{
+    const id = req.params.id;
+    restaurantModel.findByIdAndDelete(id).then(data=>{
+        if(!data)
+            res.status(404).json({"message" : "Data not found"})
+        res.status(200).json({data});
+    }).catch(err =>{
+        res.status(200).json({"message" : err.message});
+    })
+}
 module.exports = {
-    createRestaurant : createRestaurant
+    createRestaurant : createRestaurant,
+    listRestaurant : listRestaurant,
+    filterRestaurant : filterRestaurant,
+    updateRestaurantById : updateRestaurantById,
+    deleteRestaurantById : deleteRestaurantById
 }
 
