@@ -2,13 +2,16 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel');
 
-const userRegister = (req,res) =>{
+function  userRegister(req,res){
     const  {userName,email,password} = req.body;
+    const hashed = bcrypt.hashSync(password, 10)
+    console.log("hased",hashed,password);
     const  userRow =  new userModel({
         userName,
         email,
-        password : bcrypt.hashSync(password,10)
+        hashed  
     });
+
 
     userModel.findOne({email}).then(data =>{
         if(!data){
@@ -28,7 +31,7 @@ const userRegister = (req,res) =>{
 
 const login = (req,res)=>{
     const { email,password} = req.body;
-   
+    console.log("in requst",email,password);
     userModel.findOne({email}).then(data =>{
         if(!data)
               return  res.status(404).json({"message" : "User not Found"});

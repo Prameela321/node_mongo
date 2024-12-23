@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://PRAMEELA:mongodb@cluster0.opxin.mongodb.net/');
+require('dotenv').config();
+const url = process.env.DB_URL;
+mongoose.connect(url);
 const db = mongoose.connection;
 db.on("error",()=>{
     console.log("connection failed");

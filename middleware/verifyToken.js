@@ -8,10 +8,11 @@ const verifyToken = (req,res,next)=>{
                     req.headers.authorization.split(" ")[1],
                     "accessToken",
                     (err,validToken)=>{
+                        // console.log(validToken);
                         if(err)
                             res.status(500).json({message : err.message});
 
-                        userModel.findById(validToken._id).then(data =>{
+                        userModel.findById(validToken.id).then(data =>{
                             req.user = data;
                             next();
                         }).catch(err =>{

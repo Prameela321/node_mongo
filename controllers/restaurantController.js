@@ -49,7 +49,7 @@ const filterRestaurant =  (req,res)=>{
 const updateRestaurantById  = (req,res)=>{
     const _id = req.params.id;
     let {avgRating,offerLine} = req.body;
-    restaurantModel.findByIdAndUpdate(_id,{avgRating : avgRating ,offerLine : offerLine }).then(data=>{
+    restaurantModel.findByIdAndUpdate(_id,{avgRating : avgRating ,offerLine : offerLine },{new  : true, runValidators : true}).then(data=>{
         if(!data){
             res.status(404).json({"message" : "Data not found"})
         }
