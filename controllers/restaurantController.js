@@ -28,6 +28,7 @@ function listRestaurant(req,res){
     restaurantModel.find().then(data=>{
         if(!data)
             res.status(400).json({"message" : "No Data Found"});
+        console.log("testing response",data);
         return  res.status(200).json({data})
     }).catch(err =>{
         res.status(500).json({"message" : err});
