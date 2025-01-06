@@ -24,6 +24,7 @@ function createRestaurant(req,res){
 }
 
 function listRestaurant(req,res){
+    console.log("listRestaurant",req.user);
     restaurantModel.find().then(data=>{
         if(!data)
             res.status(400).json({"message" : "No Data Found"});

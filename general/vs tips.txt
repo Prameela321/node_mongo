@@ -1,0 +1,6 @@
+vs tips
+
+
+copy multiple lines : select alt+shift+down arrow
+move multiple lines down : select alt+down arrow
+move multiple lines up : select alt+up arrow

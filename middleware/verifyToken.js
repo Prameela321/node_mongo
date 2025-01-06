@@ -8,7 +8,7 @@ const verifyToken = (req,res,next)=>{
                     req.headers.authorization.split(" ")[1],
                     "accessToken",
                     (err,validToken)=>{
-                        // console.log(validToken);
+                        console.log("validtoken",validToken);
                         if(err)
                             res.status(500).json({message : err.message});
 
@@ -26,4 +26,10 @@ const verifyToken = (req,res,next)=>{
         }
     };
 
-module.exports = verifyToken;
+function generateToken(data){
+    const token = jwt.sign({id: data._id},"accessToken",{expiresIn : "1hr"});
+
+    return token;
+}
+
+module.exports = { verifyToken,generateToken};

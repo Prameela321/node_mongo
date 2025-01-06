@@ -1,5 +1,5 @@
 const restaurantController = require('../controllers/restaurantController');
-const verifyToken = require('../middleware/verifyToken');
+const {verifyToken} = require('../middleware/verifyToken');
 function restaurantRoutes(app){
     app.post('/createRestaurant',restaurantController.createRestaurant);
     app.get('/listRestaurant',verifyToken,restaurantController.listRestaurant);
